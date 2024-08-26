@@ -1,0 +1,44 @@
+import requests
+
+
+api_key = ' 27dd6a2031834c2094b80536242508' # Replace with your actual API key
+
+query = 'vijayawada'
+
+url = f'http://api.weatherapi.com/v1/current.json?key={api_key}&q={query}&aqi=yes'
+
+def fetch_current_weather(api_key, query):
+
+url = f'http://api.weatherapi.com/v1/current.json?key={api_key}&q={query}&aqi=yes'
+
+response = requests.get(url)
+
+if response.status_code == 200:
+
+data = response.json()
+
+
+location = data['location']
+
+current = data['current']
+
+print(f"Location: {location['name']}, {location['region']}, {location['country']}")
+
+print(f"Temperature: {current['temp_c']}°C")
+
+print(f"Condition: {current['condition']['text']}")
+
+print(f"Humidity: {current['humidity']}%")
+
+print(f"Air Quality (US EPA Index): {current['air_quality']['us-epa-index']}")
+
+print(f"Wind Speed: {current['wind_kph']} kph")
+
+print(f"Last Updated: {current['last_updated']}")
+
+else:
+
+print(f"Failed to retrieve data: {response.status_code}")
+
+
+fetch_current_weather(api_key, query)
